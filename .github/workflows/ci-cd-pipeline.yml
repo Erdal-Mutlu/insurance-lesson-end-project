@@ -49,7 +49,8 @@ jobs:
 
     - name: Deploy to Jenkins
       run: |
-        curl -X POST "$JENKINS_URL/job/$JENKINS_JOB_NAME/buildWithParameters?token=$JENKINS_API_TOKEN&artifact=target/*.war"
+        CRUMB=$(curl -u "$JENKINS_USER:$JENKINS_API_TOKEN" "$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)")
+        curl -X POST -u "$JENKINS_USER:$JENKINS_API_TOKEN" -H "$CRUMB" "$JENKINS_URL/job/$JENKINS_JOB_NAME/buildWithParameters?artifact=target/*.war"
       env:
         JENKINS_URL: ${{ secrets.JENKINS_URL }}
         JENKINS_JOB_NAME: ${{ secrets.JENKINS_JOB_NAME }}

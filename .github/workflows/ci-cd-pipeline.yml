@@ -18,7 +18,7 @@ jobs:
 
     - name: Deploy to Jenkins
       run: |
-        curl -X POST -u "$JENKINS_USER:$JENKINS_API_TOKEN" -H "$CRUMB" "$JENKINS_URL/job/$JENKINS_JOB_NAME/build"
+        curl -X POST -u "$JENKINS_USER:$JENKINS_API_TOKEN" "$JENKINS_URL/job/$JENKINS_JOB_NAME/build"
       env:
         JENKINS_URL: ${{ secrets.JENKINS_URL }}
         JENKINS_USER: ${{ secrets.JENKINS_USER }}

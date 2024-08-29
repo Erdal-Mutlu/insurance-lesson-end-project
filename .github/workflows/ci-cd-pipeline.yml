@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: java-app
-        path: target/*.jar
+        path: target/*.war
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
 
     - name: Deploy to Jenkins
       run: |
-        curl -X POST "$JENKINS_URL/job/$JENKINS_JOB_NAME/buildWithParameters?token=$JENKINS_API_TOKEN&artifact=target/*.jar"
+        curl -X POST "$JENKINS_URL/job/$JENKINS_JOB_NAME/buildWithParameters?token=$JENKINS_API_TOKEN&artifact=target/*.war"
       env:
         JENKINS_URL: ${{ secrets.JENKINS_URL }}
         JENKINS_JOB_NAME: ${{ secrets.JENKINS_JOB_NAME }}
